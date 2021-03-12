@@ -18,7 +18,7 @@ import Visit from "./screens/visits";
 import Postdetails from './screens/postDetails'
 import { Component } from 'react';
 
-const Stack = createStackNavigator();
+const AppStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const logo = require("./assets/images/logoy.png");
@@ -30,7 +30,6 @@ function MyTabs() {
         name=" "
         component={Home}
         options={{
-          
           tabBarColor: "#18c1a5",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={28} />
@@ -41,7 +40,6 @@ function MyTabs() {
         name="  "
         component={Discover}
         options={{
-          
           tabBarColor: "#212b4c",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="compass" color={color} size={24} />
@@ -52,7 +50,6 @@ function MyTabs() {
         name="   "
         component={Visit}
         options={{
-          
           tabBarColor: "#7589aa",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bookmark" color={color} size={28} />
@@ -63,13 +60,13 @@ function MyTabs() {
         name="    "
         component={Profile}
         options={{
-          
           tabBarColor: "#e6e6e6",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={28} />
           ),
         }}
       />
+
     </Tab.Navigator>
   );
 }  
@@ -91,7 +88,7 @@ export default class App extends Component {
     var that = this;  
     setTimeout(function(){  
       that.Hide_Splash_Screen();  
-    }, 5000);  
+    }, 10);  
    }  
    render()  
     {  
@@ -103,12 +100,9 @@ export default class App extends Component {
                 </View>  
              </View> )  
   return (
-    
     <NavigationContainer>
-      {  
-                  (this.state.isVisible === true) ? Splash_Screen : null  
-                }  
-      <MyTabs />
+      {this.state.isVisible === true ? Splash_Screen : null}
+      <MyTabs />     
     </NavigationContainer>
   );
 }

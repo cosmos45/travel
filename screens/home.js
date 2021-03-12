@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { StyleSheet, Text, View, ImageBackground, Image, Button, ScrollView, TouchableOpacity, FlatList, TextInput } from "react-native";
 import { SearchBar, Card} from "react-native-elements";
 import { Feather } from "react-native-vector-icons";
-import { CardFive, CardNine } from "react-native-card-ui";
+import { CardFive, CardNine, CardSeven, CardEleven} from "react-native-card-ui";
 
 
 
@@ -157,7 +157,7 @@ const Home = ({navigation}) => {
                         source={item.image1}
                         style={{
                           width: 100,
-                          height: 140,
+                          height: 180,
                           marginRight: 14,
                         }}
                         imageStyle={{
@@ -169,7 +169,7 @@ const Home = ({navigation}) => {
                           size={14}
                           color="white"
                           style={{
-                            paddingTop: 118,
+                            paddingTop: 158,
                             paddingLeft: 4,
                           }}
                         >
@@ -187,11 +187,10 @@ const Home = ({navigation}) => {
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              
               data={topjourney}
               renderItem={({ item }) => {
                 return (
-                  <View style={{paddingLeft: 85}}> 
+                  <View style={{ paddingLeft: 85 }}>
                     <CardNine
                       title={item.title}
                       subTitle={item.subtitle}
@@ -203,19 +202,82 @@ const Home = ({navigation}) => {
                     />
                   </View>
                 );
-            }}
+              }}
             ></FlatList>
+
+            <Text style={styles.trending}>Stories</Text>
+
+            <Text style={styles.trending}>Last Minute Deals</Text>
+            <View>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={topjourney}
+                renderItem={({ item }) => {
+                return (
+                  <View>
+                    <CardFive
+                      title={item.title}
+                      subTitle={item.subtitle}
+                      image={item.image}
+                      icon={"star"}
+                      nbStar={3}
+                      iconColor={"#FFC57C"}
+                    />
+                  </View>
+                );
+                }}
+              ></FlatList>
+            </View>
+
+
+            <Text style={styles.trending}>Hotels</Text>
+            <View>
+              <FlatList
+              horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={topjourney}
+                renderItem={({ item }) => {
+                return (
+                  <View>
+                    <CardEleven
+                      price={"$900/month"}
+                      title={item.title}
+                      subTitle={item.subtitle}
+                      stars={4}
+                      tags={["wifi", "Air cond.", "TV", "Kitchen"]}
+                      image1={require("../assets/explore/country.jpg")}
+                      image2={require("../assets/explore/country.jpg")}
+                      backgroundImage={item.image}
+                      onClickedShare={() => alert("Hello")}
+                      onClickedPlus={() => alert("Hello")}
+                    />
+                  </View>
+                );
+                }}
+                  
+                  ></FlatList>
+            </View>
             
 
-            <Text style={styles.trending}>Guides</Text>
+            <Text style={styles.trending}>Air Tickets</Text>
 
-            <CardFive
+            <CardSeven
               title={"Vinny’s Barber"}
               subTitle={"852 N Virgil Ave, Beverly Hills"}
               image={require("../assets/explore/country.jpg")}
-              icon={"star"}
-              nbStar={3}
-              iconColor={"#FFC57C"}
+              icon1={"share"}
+              iconColor1={"#fff"}
+              iconBackground1={"purple"}
+              onClicked1={() => {
+                alert("Hello!");
+              }}
+              icon2={"heart"}
+              iconColor2={"#fff"}
+              iconBackground2={"red"}
+              onClicked2={() => {
+                alert("Hello!");
+              }}
             />
           </View>
         </View>
