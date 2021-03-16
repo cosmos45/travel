@@ -11,14 +11,15 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
-import Home from './screens/home'
 import Discover from "./screens/discover";
 import Profile from "./screens/profile";
 import Visit from "./screens/visits";
-import Postdetails from './screens/postDetails'
 import { Component } from 'react';
+import { MainStackNavigator } from './stacknavigation/stacknavigation';
+import { DiscoverStackNavigator } from './stacknavigation/discovernavigation';
+import { LoginStackNavigator } from './stacknavigation/loginnavigation';
 
-const AppStack = createStackNavigator();
+
 const Tab = createMaterialBottomTabNavigator();
 
 const logo = require("./assets/images/logoy.png");
@@ -28,7 +29,7 @@ function MyTabs() {
     <Tab.Navigator initialRouteName="Home" activeColor="#fff">
       <Tab.Screen
         name=" "
-        component={Home}
+        component={MainStackNavigator}
         options={{
           tabBarColor: "#18c1a5",
           tabBarIcon: ({ color }) => (
@@ -38,7 +39,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="  "
-        component={Discover}
+        component={DiscoverStackNavigator}
         options={{
           tabBarColor: "#212b4c",
           tabBarIcon: ({ color }) => (
@@ -58,7 +59,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="    "
-        component={Profile}
+        component={LoginStackNavigator}
         options={{
           tabBarColor: "#e6e6e6",
           tabBarIcon: ({ color }) => (
@@ -66,7 +67,6 @@ function MyTabs() {
           ),
         }}
       />
-
     </Tab.Navigator>
   );
 }  

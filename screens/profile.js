@@ -13,7 +13,10 @@ const pp = require("../assets/images/profile.jpg");
 const Separator = () => <View style={styles.separator} />;
 
 
-const profile = () => {
+const profile = ({navigation}) => {
+  const gotologin = () => {
+    navigation.navigate("Login");
+  };
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -25,7 +28,6 @@ const profile = () => {
             borderBottomLeftRadius: 35,
           }}
         >
-          <Text>Profile</Text>
           <View
             style={{
               paddingTop: 190,
@@ -61,7 +63,7 @@ const profile = () => {
             radius={20}
             impact
             impactStyle="Light"
-            onPressAction={() => alert("You pressed me!")}
+            onPressAction={gotologin}
           />
         </View>
         <Separator />
