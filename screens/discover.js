@@ -45,7 +45,7 @@ const discover = () => {
   return (
     <View>
       <ScrollView>
-        <Text style={styles.UserGreet}>Discover</Text>
+        
         <SearchBar
           lightTheme
           autoCapitalize="none"

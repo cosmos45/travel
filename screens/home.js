@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, {useState} from "react";
-import { StyleSheet, Text, View, ImageBackground, Image, Button, ScrollView, TouchableOpacity, FlatList, TextInput } from "react-native";
-import { SearchBar, Card} from "react-native-elements";
+import { StyleSheet, Text, View, ImageBackground, Image, Button, ScrollView, TouchableOpacity, FlatList,  } from "react-native";
+import { SearchBar, Card, Avatar} from "react-native-elements";
 import { Feather } from "react-native-vector-icons";
 import { CardFive, CardNine, CardSeven, CardEleven} from "react-native-card-ui";
 
@@ -205,7 +205,41 @@ const Home = ({navigation}) => {
               }}
             ></FlatList>
 
-            <Text style={styles.trending}>Stories</Text>
+            <View style={{ flex: 3 }}>
+              <Text style={styles.trending}>Stories</Text>
+              <FlatList horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={topjourney}
+              renderItem={({ item }) => {
+                return (
+                  <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                  alignItems: "center",
+                  paddingStart: 5,
+                  paddingEnd: 5,
+                }}
+              >
+                <Avatar
+                  rounded
+                  source={item.image}
+                  size="large"
+                  containerStyle={{
+                    flex: 1,
+                    marginTop: 10,
+                    marginLeft: 10,
+                    borderColor: "#18c1a5",
+                    borderWidth: 2,
+                  }}
+                ></Avatar>
+                
+              </ScrollView>
+              );
+              }}
+              ></FlatList>
+              
+            </View>
 
             <Text style={styles.trending}>Last Minute Deals</Text>
             <View>
@@ -214,51 +248,48 @@ const Home = ({navigation}) => {
                 showsHorizontalScrollIndicator={false}
                 data={topjourney}
                 renderItem={({ item }) => {
-                return (
-                  <View>
-                    <CardFive
-                      title={item.title}
-                      subTitle={item.subtitle}
-                      image={item.image}
-                      icon={"star"}
-                      nbStar={3}
-                      iconColor={"#FFC57C"}
-                    />
-                  </View>
-                );
+                  return (
+                    <View>
+                      <CardFive
+                        title={item.title}
+                        subTitle={item.subtitle}
+                        image={item.image}
+                        icon={"star"}
+                        nbStar={3}
+                        iconColor={"#FFC57C"}
+                      />
+                    </View>
+                  );
                 }}
               ></FlatList>
             </View>
 
-
             <Text style={styles.trending}>Hotels</Text>
             <View>
               <FlatList
-              horizontal={true}
+                horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 data={topjourney}
                 renderItem={({ item }) => {
-                return (
-                  <View>
-                    <CardEleven
-                      price={"$900/month"}
-                      title={item.title}
-                      subTitle={item.subtitle}
-                      stars={4}
-                      tags={["wifi", "Air cond.", "TV", "Kitchen"]}
-                      image1={require("../assets/explore/country.jpg")}
-                      image2={require("../assets/explore/country.jpg")}
-                      backgroundImage={item.image}
-                      onClickedShare={() => alert("Hello")}
-                      onClickedPlus={() => alert("Hello")}
-                    />
-                  </View>
-                );
+                  return (
+                    <View>
+                      <CardEleven
+                        price={"$900/month"}
+                        title={item.title}
+                        subTitle={item.subtitle}
+                        stars={4}
+                        tags={["wifi", "Air cond.", "TV", "Kitchen"]}
+                        image1={require("../assets/explore/country.jpg")}
+                        image2={require("../assets/explore/country.jpg")}
+                        backgroundImage={item.image}
+                        onClickedShare={() => alert("Hello")}
+                        onClickedPlus={() => alert("Hello")}
+                      />
+                    </View>
+                  );
                 }}
-                  
-                  ></FlatList>
+              ></FlatList>
             </View>
-            
 
             <Text style={styles.trending}>Air Tickets</Text>
 

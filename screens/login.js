@@ -6,15 +6,28 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import {Button} from "react-native-elements"
+
 
 
 const visits = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const login = async()=>{
+      try{
+              firebase.auth().createUserWithEmailAndPassword(email, password);
+              navigation.navigate("Home")
+
+      }
+      catch(err){
+        setError(err.message);
+      }
+    }
 
     const image = require("../assets/images/loginbg2.jpg");
   return (
@@ -31,7 +44,8 @@ const visits = ({navigation}) => {
             style={styles.TextInput}
             placeholder="Email."
             placeholderTextColor="#003f5c"
-            onChangeText={(email) => setEmail(email)}
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
 
@@ -41,16 +55,23 @@ const visits = ({navigation}) => {
             placeholder="Password."
             placeholderTextColor="#003f5c"
             secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
-        <TouchableOpacity>
-          <Text style={styles.forgot_button}>Forgot Password?</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>LOGIN</Text>
-        </TouchableOpacity>
+        {
+          error?
+          <Text style={{color:'red'}}>Error</Text>
+          :null
+        }
+
+        
+          <Text style={styles.forgot_button}>Forgot Password?</Text>
+        
+
+        <Button onPress={()=> login} title="login">        
+        </Button>
       </ImageBackground>
     </View>
   );
@@ -72,7 +93,7 @@ const styles = StyleSheet.create({
 
   inputView: {
     backgroundColor: "white",
-    opacity: 0.3,
+    opacity: 0.9,
     borderRadius: 30,
     width: "70%",
     height: 45,
