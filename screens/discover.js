@@ -14,6 +14,14 @@ import { Feather } from "react-native-vector-icons";
 
 
 
+
+const discover = ({navigation}) => {
+
+  const gotofood = () => {
+    navigation.navigate('Guide');
+  };
+
+
 const explore = [
   {
     name: "Guides",
@@ -40,8 +48,6 @@ const explore = [
     image2: require("../assets/explore/stories.jpg"),
   },
 ];
-
-const discover = () => {
   return (
     <View>
       <ScrollView>
@@ -81,6 +87,7 @@ const discover = () => {
                     style={{
                       paddingTop: 10,
                     }}
+                    onPress={gotofood}
                   >
                     <ImageBackground
                       source={item.image2}

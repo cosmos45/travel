@@ -7,12 +7,20 @@ import Postdetails from "../screens/postDetails";
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
-    return(
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home}/>
-            <Stack.Screen name="Postdetails" component={Postdetails}/>
-        </Stack.Navigator>
-    )
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Postdetails"
+          component={Postdetails}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    );
 
 }
 

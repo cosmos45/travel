@@ -15,7 +15,7 @@ const Separator = () => <View style={styles.separator} />;
 
 const profile = ({navigation}) => {
   const gotologin = () => {
-    navigation.navigate("Login");
+    navigation.navigate("Registration");
   };
   return (
     <View>
@@ -53,7 +53,7 @@ const profile = ({navigation}) => {
         >
           <GradientButton
             style={{ marginVertical: 8 }}
-            text="Sign Out"
+            text="Sign In"
             textStyle={{ fontSize: 14, color: "black" }}
             gradientBegin="#e6e6e6"
             gradientEnd="#bfbfbf"
