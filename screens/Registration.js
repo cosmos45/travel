@@ -1,158 +1,138 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+// components/signup.js
+
+import React, { Component } from "react";
 import {
-  TouchableOpacity,
-  ImageBackground,
   StyleSheet,
+  Text,
+  View,
   TextInput,
+  Button,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
-import { Button,  Text, Input } from "react-native-elements";
-import { ScrollView } from "react-native-gesture-handler";
 import firebase from "../firebase/fire";
 
-const visits = ({ navigation }) => {
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cpass, setcpass] = useState("")
+export default class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      displayName: "",
+      email: "",
+      password: "",
+      isLoading: false,
+    };
+  }
 
-  const signUp = async () => {
-    try {
-      const response = await firebase
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  };
+
+  registerUser = () => {
+    if (this.state.email === "" && this.state.password === "") {
+      Alert.alert("Enter details to signup!");
+    } else {
+      this.setState({
+        isLoading: true,
+      });
+      firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password);
-      navigation.navigate("SignIn");
-    } catch (err) {
-      setError(err.message);
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((res) => {
+          res.user.updateProfile({
+            displayName: this.state.displayName,
+          });
+          console.log("User registered successfully!");
+          this.setState({
+            isLoading: false,
+            displayName: "",
+            email: "",
+            password: "",
+          });
+          this.props.navigation.navigate("SignIn");
+        })
+        .catch((error) => this.setState({ errorMessage: error.message }));
     }
   };
 
-  const image = require("../assets/images/loginbg2.jpg");
-  return (
-    <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground source={image} style={{ width: "100%", height: 730 }}>
-          <View style={{ top: 30, }}>
-            <Text style={styles.UserGreet}>Go on a</Text>
-            <Text style={styles.UserGreet}>top rated</Text>
-            <Text style={styles.UserGreet}>experience</Text>
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              label="Name"
-              value={name}
-              placeholder="Name"
-              placeholderTextColor="#003f5c"
-              onChangeText={setName}
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              label="Phone Number"
-              value={phone}
-              placeholder="Phone Number"
-              placeholderTextColor="#003f5c"
-              onChangeText={setPhone}
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              label="Email"
-              value={email}
-              placeholder="Email"
-              placeholderTextColor="#003f5c"
-              onChangeText={setEmail}
-            />
-          </View>
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E" />
+        </View>
+      );
+    }
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Name"
+          value={this.state.displayName}
+          onChangeText={(val) => this.updateInputVal(val, "displayName")}
+        />
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Email"
+          value={this.state.email}
+          onChangeText={(val) => this.updateInputVal(val, "email")}
+        />
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Password"
+          value={this.state.password}
+          onChangeText={(val) => this.updateInputVal(val, "password")}
+          maxLength={15}
+          secureTextEntry={true}
+        />
+        <Button
+          color="#3740FE"
+          title="Signup"
+          onPress={() => this.registerUser()}
+        />
 
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              label="Password"
-              placeholder="Password"
-              placeholderTextColor="#003f5c"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              label="Confirm Password"
-              placeholder="Confirm Password"
-              placeholderTextColor="#003f5c"
-              value={cpass}
-              onChangeText={setcpass}
-              secureTextEntry
-            />
-          </View>
-          {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
-          <View style={{ top: 50, left: 35, alignSelf: "center" }}>
-            <Button
-              title="SignUp"
-              titleStyle={{ color: "white" }}
-              onPress={() => signUp()}
-              type="outline"
-              buttonStyle={{
-                width: "60%",
-                color: "white",
-                borderColor: "white",
-                borderRadius: 25,
-              }}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("SignIn")}
-            style={{ top: 65, alignSelf: "center" }}
-          >
-            <Text style={{ color: "white" }}>
-              Already have an account? Sign In
-            </Text>
-          </TouchableOpacity>
-        </ImageBackground>
-      </ScrollView>
-    </View>
-  );
-};
+        <Text
+          style={styles.loginText}
+          onPress={() => this.props.navigation.navigate("SignIn")}
+        >
+          Already Registered? Click here to login
+        </Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  UserGreet: {
-    fontSize: 41,
-    fontWeight: "bold",
-    color: "white",
-    paddingLeft: 25,
-  },
-  inputView: {
-    backgroundColor: "white",
-    opacity: 0.9,
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-    justifyContent: "center",
-    top: 50,
-    alignSelf: "center",
-    alignItems: "center",
-  },
-
-  TextInput: {
-    height: 50,
+  container: {
     flex: 1,
-    padding: 10,
-    marginLeft: 20,
-    color: "black",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 35,
+    backgroundColor: "#fff",
   },
-  loginBtn: {
-    width: "60%",
-    borderRadius: 65,
+  inputStyle: {
+    width: "100%",
+    marginBottom: 15,
+    paddingBottom: 15,
     alignSelf: "center",
+    borderColor: "#ccc",
+    borderBottomWidth: 1,
+  },
+  loginText: {
+    color: "#3740FE",
+    marginTop: 25,
+    textAlign: "center",
+  },
+  preloader: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    
+    backgroundColor: "#fff",
   },
 });
-export default visits;

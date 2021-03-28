@@ -6,11 +6,9 @@ import { Feather } from "react-native-vector-icons";
 import { CardFive, CardNine, CardSeven, CardEleven} from "react-native-card-ui";
 
 
-
-
-
 const Home = ({navigation}) => {
-  
+
+
 
     const image = require('../assets/images/bg1.jpg')
 
@@ -21,8 +19,8 @@ const Home = ({navigation}) => {
     const gotopost = () => {
       navigation.navigate('Postdetails');
     }
- 
-    
+
+
     const [gallery, setgallery] = useState([
       {
         image1: require("../assets/scrollview/place_1.jpg"),
@@ -59,11 +57,13 @@ const Home = ({navigation}) => {
     ]);
 
     const [topjourney] = useState([
+
       {
         image: require("../assets/topjourneys/1.jpg"),
         title: "Place1",
         subtitle: "be there, done that",
       },
+
       {
         image: require("../assets/topjourneys/2.jpg"),
         title: "Place2",
@@ -94,7 +94,11 @@ const Home = ({navigation}) => {
         title: "Place7",
         subtitle: "be there, done that",
       },
-    ]);
+    ])
+
+
+
+
 
 
   return (
@@ -118,7 +122,7 @@ const Home = ({navigation}) => {
             <View style={styles.DarkOverlay}></View>
 
             <Text style={styles.UserLocation}>You're in Mumbai</Text>
-            <Text style={styles.UserGreet}>Hi Shania</Text>
+            <Text style={styles.UserGreet}>Hi, {this.state.displayName} </Text>
 
             <SearchBar
               lightTheme
@@ -207,38 +211,37 @@ const Home = ({navigation}) => {
 
             <View style={{ flex: 3 }}>
               <Text style={styles.trending}>Stories</Text>
-              <FlatList horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={topjourney}
-              renderItem={({ item }) => {
-                return (
-                  <ScrollView
+              <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                  alignItems: "center",
-                  paddingStart: 5,
-                  paddingEnd: 5,
+                data={topjourney}
+                renderItem={({ item }) => {
+                  return (
+                    <ScrollView
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{
+                        alignItems: "center",
+                        paddingStart: 5,
+                        paddingEnd: 5,
+                      }}
+                    >
+                      <Avatar
+                        rounded
+                        source={item.image}
+                        size="large"
+                        containerStyle={{
+                          flex: 1,
+                          marginTop: 10,
+                          marginLeft: 10,
+                          borderColor: "#18c1a5",
+                          borderWidth: 2,
+                        }}
+                      ></Avatar>
+                    </ScrollView>
+                  );
                 }}
-              >
-                <Avatar
-                  rounded
-                  source={item.image}
-                  size="large"
-                  containerStyle={{
-                    flex: 1,
-                    marginTop: 10,
-                    marginLeft: 10,
-                    borderColor: "#18c1a5",
-                    borderWidth: 2,
-                  }}
-                ></Avatar>
-                
-              </ScrollView>
-              );
-              }}
               ></FlatList>
-              
             </View>
 
             <Text style={styles.trending}>Last Minute Deals</Text>
@@ -317,10 +320,11 @@ const Home = ({navigation}) => {
       <Text>this is it</Text>
     </View>
   );
-}
+            };
+
 
 const styles = StyleSheet.create({
-  
+
 
   container: {
     flex: 1,
@@ -357,7 +361,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingTop: 140,
     paddingLeft: 25,
-  
+
   },
 
   trending:{
@@ -365,7 +369,7 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     paddingTop: 15,
     paddingLeft: 25,
-    
+
   },
   scroll:{
     paddingLeft: 10,
@@ -375,7 +379,7 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 16,
     fontWeight: "bold",
-    
+
     color: "white",
   },
   card:{

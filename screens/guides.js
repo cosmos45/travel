@@ -5,13 +5,13 @@ import Swiper from "react-native-swiper";
 import GradientButton from "react-native-gradient-buttons";
 
 const styles = StyleSheet.create({
-  wrapper: {},
-  slide1: {
+    wrapper: {},
+    slide1: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  slide2: {
+    slide2: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -74,7 +74,7 @@ const Guides = () => {
         <Text style={styles.text}>Beautiful</Text>
       </View>
       <View testID="Simple" style={styles.slide3}>
-        <Text style={styles.text}>And simple</Text>
+        <Text style={styles.text} >And simple </Text>
       </View>
     </Swiper>
   );
