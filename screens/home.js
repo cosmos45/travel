@@ -6,6 +6,9 @@ import { Feather } from "react-native-vector-icons";
 import { CardFive, CardNine, CardSeven, CardEleven} from "react-native-card-ui";
 
 
+
+
+
 const Home = ({navigation}) => {
 
 
@@ -122,7 +125,7 @@ const Home = ({navigation}) => {
             <View style={styles.DarkOverlay}></View>
 
             <Text style={styles.UserLocation}>You're in Mumbai</Text>
-            <Text style={styles.UserGreet}>Hi, {this.state.displayName} </Text>
+            <Text style={styles.UserGreet}>Hi,  </Text>
 
             <SearchBar
               lightTheme
